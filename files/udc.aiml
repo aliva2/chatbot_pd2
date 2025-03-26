@@ -1,7 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml>
-  <category>
-    <pattern>*</pattern>
-    <template>I have no answer for that.</template>
-  </category>
+    
+<category>
+    <pattern> * </pattern>
+    <template>
+        <think><set name="topic"> clothing yesno </set></think>
+        <random>
+            <li>Vēlies pirkt drēbes?</li>
+            <li>Esmu asistente Sintija, pirksi apģērbu?</li>
+            <li>Vai gribi pirkt apģērbu?</li>
+        </random>
+    </template>
+</category>
+
+<topic name="clothing yesno">  
+<category>
+    <pattern> * </pattern>
+    <template>
+        Atvaino, nesapratu! Vai pasūtīsi drēbes?
+    </template>
+</category>
+</topic>
+
+
 </aiml>
