@@ -20,7 +20,65 @@
         Atvaino, nesapratu! Vai pasūtīsi drēbes?
     </template>
 </category>
+<category>
+    <pattern> <set>yesset</set> </pattern>
+    <template>
+        <think><set name = "topic"> clothes question</set></think>
+        No kuras apģērba kategorijas vēlies pirkt?
+    </template>
+</category>
+<category>
+    <pattern> <set>yesset</set> ^ </pattern>
+    <template>
+        <srai> <star index="2"/></srai>
+    </template>
+</category>
+<category>
+    <pattern> <set>noset</set> </pattern>
+    <template>
+        <set name = "topic"> *</set>
+        Visu labu, ja vēlesies kaut ko nopirkt vēlāk, būšu tepat!
+    </template>
+</category>
 </topic>
+
+
+<topic name="color question">  
+<category>
+    <pattern> * </pattern>
+    <template>
+        Pāslaik šādas krāsas apērbs nav nolikavās. Mūsu veikalā pieejams šādas krāsas apģērbs - melns, balts, sarkans!
+    </template>
+</category>
+<category>
+    <pattern> <set>coloroffer</set> ^ </pattern>
+    <template>
+        Var izvēlēties kādu no šīm krāsām - melns, balts, sarkans!
+    </template>
+</category>
+<category>
+    <pattern> <set>colorset</set> ^ </pattern>
+    <template>
+        <think><set name="color"> black </set></think> 
+        <srai> VALIDATE!</srai>
+    </template>
+</category>
+<category>
+    <pattern> <set>colorset</set> ^ </pattern>
+    <template>
+        <think><set name="color"> white </set></think> 
+        <srai> VALIDATE!</srai>
+    </template>
+</category>
+<category>
+    <pattern> <set>colorset</set> ^ </pattern>
+    <template>
+        <think><set name="color"> red </set></think> 
+        <srai> VALIDATE!</srai>
+    </template>
+</category>
+
+
 
 
 </aiml>
