@@ -24,7 +24,7 @@
     <pattern> <set>yesset</set> </pattern>
     <template>
         <think><set name = "topic"> clothes question</set></think>
-        No kuras apģērba kategorijas vēlies pirkt?
+        No kuras apģērba kategorijas vēlies pirkt? Džemperi, bikses, svārki, kleitas?
     </template>
 </category>
 <category>
@@ -77,8 +77,7 @@
         <srai> VALIDATE!</srai>
     </template>
 </category>
-
-
+</topic>
 
 
 </aiml>
