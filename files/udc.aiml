@@ -8,7 +8,7 @@
         <random>
             <li>Vēlies pirkt drēbes?</li>
             <li>Esmu asistente Sintija, pirksi apģērbu?</li>
-            <li>Vai gribi pirkt apģērbu?</li>
+            <li>Labdien! Vai gribi pirkt apģērbu?</li>
         </random>
     </template>
 </category>
@@ -17,14 +17,15 @@
 <category>
     <pattern> * </pattern>
     <template>
-        Atvaino, nesapratu! Vai pasūtīsi drēbes?
+        Piedod, nesapratu ko vēlies! Vai pasūtīsi drēbes?
     </template>
 </category>
 <category>
+    
     <pattern> <set>yesset</set> </pattern>
     <template>
         <think><set name = "topic"> clothes question</set></think>
-        No kuras apģērba kategorijas vēlies pirkt? Džemperi, bikses, svārki, kleitas?
+        Ko vēlies pirkt? Džemperi, bikses, svārkus, kleitu vai ko citu?
     </template>
 </category>
 <category>
@@ -33,6 +34,7 @@
         <srai> <star index="2"/></srai>
     </template>
 </category>
+
 <category>
     <pattern> <set>noset</set> </pattern>
     <template>
@@ -40,6 +42,13 @@
         Visu labu, ja vēlesies kaut ko nopirkt vēlāk, būšu tepat!
     </template>
 </category>
+<category>
+    <pattern> <set>noset</set> ^ </pattern>
+    <template>
+        <srai> <star index="2"/></srai>
+    </template>
+</category>
+
 </topic>
 
 
@@ -47,7 +56,7 @@
 <category>
     <pattern> * </pattern>
     <template>
-        Pāslaik šādas krāsas apērbs nav nolikavās. Mūsu veikalā pieejams šādas krāsas apģērbs - melns, balts, sarkans!
+        Pašlaik šādas krāsas apērbs nav nolikavās. Mūsu veikalā pieejams šādas krāsas apģērbs - melns, balts, sarkans!
     </template>
 </category>
 <category>
@@ -60,18 +69,61 @@
     <pattern> <set>colorset</set> ^ </pattern>
     <template>
         <think><set name="color"> black </set></think> 
-        <srai> VALIDATE!</srai>
+        <srai> VALIDATE </srai>
     </template>
 </category>
 <category>
-    <pattern> <set>colorset</set> ^ </pattern>
+    <pattern>^ <set>colorset</set> ^ </pattern>
     <template>
         <think><set name="color"> white </set></think> 
-        <srai> VALIDATE!</srai>
+        <srai> VALIDATE </srai>
     </template>
 </category>
 <category>
-    <pattern> <set>colorset</set> ^ </pattern>
+    <pattern>^ <set>colorset</set> ^ </pattern>
+    <template>
+        <think><set name="color"> red </set></think> 
+        <srai> VALIDATE </srai>
+    </template>
+</category>
+<category>
+    <pattern>^ <set>colorset</set> ^</pattern>
+    <template>
+        <think><set name="color"> red </set></think> 
+        <srai> VALIDATE </srai>
+    </template>
+</category>
+<category>
+    <pattern> VALIDATE </pattern>
+    <template>
+        <think><set name="topic"> color validation </set></think> 
+        Tu vēlies pirkt <get name="color"/> apģērbu. Vai tā ir pareizi?
+    </template>
+</category>
+</topic>
+
+<topic name="clothes validation">
+<category>
+    <pattern> * </pattern>
+    <template>
+        Piedod, vai tu izvēlējies pirkt <get name="color"/> apģērbu?
+    </template>
+</category>
+<category>
+    <pattern> <set>rightset</set> </pattern>
+    <template>
+        <think> <set name="topic"> clothes size question </set>
+        <set name= "size"> nebūs </set></think>
+        Ļoti labi, vai vēlies izvēlēties izmēru?
+    </template>
+</category>
+</topic>
+
+
+
+<topic name="FINAL">
+<category>
+    <pattern> Summary </pattern>
     <template>
         <think><set name="color"> red </set></think> 
         <srai> VALIDATE!</srai>
