@@ -87,13 +87,6 @@
     </template>
 </category>
 <category>
-    <pattern>^ <set>colorset</set> ^</pattern>
-    <template>
-        <think><set name="color"> red </set></think> 
-        <srai> VALIDATE </srai>
-    </template>
-</category>
-<category>
     <pattern> VALIDATE </pattern>
     <template>
         <think><set name="topic"> color validation </set></think> 
@@ -113,20 +106,144 @@
     <pattern> <set>rightset</set> </pattern>
     <template>
         <think> <set name="topic"> clothes size question </set>
-        <set name= "size"> nebūs </set></think>
+        <set name= "size"> vienalga </set></think>
         Ļoti labi, vai vēlies izvēlēties izmēru?
+    </template>
+</category>
+<category>
+    <pattern>^ <set>rightset</set> ^</pattern>
+    <template>
+        <srai><star index="2"/></srai>
+    </template>
+</category>
+<category>
+    <pattern> <set>wrongset</set> </pattern>
+    <template>
+        <think> <set name="topic"> clothes size question </set></think>
+        Nesapratu, kādu izmēru vēlies? Pieejamie izmēri: XS, S, M, L, XL, XXL?
+    </template>
+</category>
+<category>
+    <pattern>^ <set>wrongset</set> ^</pattern>
+    <template>
+        <srai><star index="2"/></srai>
+    </template>
+</category>
+</topic>
+
+<topic name = "clothes size question">
+<category>
+    <pattern>^ <set>noset</set> ^</pattern>
+    <template>
+        <think>^ <set> FINAL </set> ^</think>
+        Labi
+        <srai> SUMMARY </srai>
+    </template>
+</category>
+<category>
+    <pattern>^ <set>yesset</set> ^</pattern>
+    <template>
+        Kāda izmēra drēbes tu vēlies? XS, S, M, L, XL, XXL?
+    </template>
+</category>
+<category>
+    <pattern> <set>colorset</set> ^ </pattern>
+    <template>
+        <think><set name="size"> XS </set></think> 
+        <srai> VALIDATE </srai>
+    </template>
+</category>
+<category>
+    <pattern>^ <set>sizeset</set> ^ </pattern>
+    <template>
+        <think><set name="size"> S </set></think> 
+        <srai> VALIDATE </srai>
+    </template>
+</category>
+<category>
+    <pattern>^ <set>sizeset</set> ^ </pattern>
+    <template>
+        <think><set name="size"> M </set></think> 
+        <srai> VALIDATE </srai>
+    </template>
+</category>
+<category>
+    <pattern> <set>colorset</set> ^ </pattern>
+    <template>
+        <think><set name="size"> L </set></think> 
+        <srai> VALIDATE </srai>
+    </template>
+</category>
+<category>
+    <pattern>^ <set>sizeset</set> ^ </pattern>
+    <template>
+        <think><set name="size"> XL </set></think> 
+        <srai> VALIDATE </srai>
+    </template>
+</category>
+<category>
+    <pattern>^ <set>sizeset</set> ^ </pattern>
+    <template>
+        <think><set name="size"> XXL </set></think> 
+        <srai> VALIDATE </srai>
+    </template>
+</category>
+<category>
+    <pattern> VALIDATE </pattern>
+    <template>
+        <think><set name="topic"> size validation </set></think> 
+        Tu vēlies pirkt <get name="size"/> izmēra apģērbu. Vai sapratu pareizi?
     </template>
 </category>
 </topic>
 
 
+<topic name="size validation">
+<category>
+    <pattern> * </pattern>
+    <template>
+        Tu vēlies pirkt <get name="size"/> izmēra apģērbu?
+    </template>
+</category>
+<category>
+    <pattern> <set>rightset</set> </pattern>
+    <template>
+        <think> <set name="topic"> clothes size question </set>
+        <set name= "size"> vienalga </set></think>
+        Ļoti labi, vai vēlies izvēlēties izmēru?
+    </template>
+</category>
+<category>
+    <pattern>^ <set>rightset</set> ^</pattern>
+    <template>
+        <srai><star index="2"/></srai>
+    </template>
+</category>
+<category>
+    <pattern> <set>wrongset</set> </pattern>
+    <template>
+        <think> <set name="topic"> clothes size question </set></think>
+        Nesapratu, kādu izmēru vēlies? Pieejamie izmēri: XS, S, M, L, XL, XXL?
+    </template>
+</category>
+<category>
+    <pattern>^ <set>wrongset</set> ^</pattern>
+    <template>
+        <think><set name ="topic"> clothes size question </set></think>
+        Īsti nesapratu? Kādu no šiem izmēriem vēlies? XS, S, M, L, XL, XXL?
+    </template>
+</category>
+</topic>
 
 <topic name="FINAL">
 <category>
-    <pattern> Summary </pattern>
+    <pattern> SUMMARY </pattern>
     <template>
-        <think><set name="color"> red </set></think> 
-        <srai> VALIDATE!</srai>
+        <think><set name="topic"> * </set></think> 
+        Tavs pasūtījums ir šāds:
+        Drēbes tips: <get name="clothes" />
+        Krāsa: <get name="color" />
+        Izmērs: <get name="size" />
     </template>
 </category>
 </topic>
