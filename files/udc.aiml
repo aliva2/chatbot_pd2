@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aiml>
-    
+  
+<!-- Sākums -->  
 <category>
-    <pattern> * </pattern>
+    <pattern> * </pattern> <!-- iegust ko ievadis 0 vai daudz vardu -->
     <template>
-        <think><set name="topic"> clothing yesno </set></think>
+        <!-- uzliek mainigo vardu uz vardu topic, vertiba ir clothing yesno-->
+        <think><set name="topic">clothing yesno</set></think> 
+        <!-- nejausi izvelesies no 3 saraksata elementiem -->
         <random>
             <li>Vēlies pirkt drēbes?</li>
             <li>Esmu asistente Sintija, pirksi apģērbu?</li>
@@ -13,6 +16,8 @@
     </template>
 </category>
 
+
+<!-- vienalga ko ievadija pirms tam tiks uz so mainigo un tad...?  -->
 <topic name="clothing yesno">  
 <category>
     <pattern> * </pattern>
@@ -21,34 +26,80 @@
     </template>
 </category>
 <category>
-    
     <pattern> <set>yesset</set> </pattern>
     <template>
-        <think><set name = "topic"> clothes question</set></think>
+        <think><set name="topic">clothes</set></think>
         Ko vēlies pirkt? Džemperi, bikses, svārkus, kleitu vai ko citu?
     </template>
 </category>
 <category>
     <pattern> <set>yesset</set> ^ </pattern>
     <template>
-        <srai> <star index="2"/></srai>
+        <think><set name="topic">clothes</set></think>
+        Ko vēlies pirkt? Džemperi, bikses, svārkus, kleitu vai ko citu?
     </template>
 </category>
-
 <category>
     <pattern> <set>noset</set> </pattern>
     <template>
-        <set name = "topic"> *</set>
+        <set name="topic">*</set>
         Visu labu, ja vēlesies kaut ko nopirkt vēlāk, būšu tepat!
     </template>
 </category>
 <category>
     <pattern> <set>noset</set> ^ </pattern>
     <template>
-        <srai> <star index="2"/></srai>
+        <set name="topic">*</set>
+        Visu labu, ja vēlesies kaut ko nopirkt vēlāk, būšu tepat!
     </template>
 </category>
+</topic>
 
+
+<topic name="clothes">
+<category>
+    <pattern> džemperi </pattern>
+    <template>
+        <!-- formal uzliks lielo burtu sākumā -->
+        <think><set name="clothes">džemperi</set></think>
+        <set name="clothesDisplay"><formal>Džemperis. </formal></set>
+        <think><set name="topic">color question</set></think>
+        Kādu krāsu vēlies džemperim? Melnu, baltu, sarkanu?
+    </template>
+</category>
+<category>
+    <pattern> bikses </pattern>
+    <template>
+        <think><set name="clothes">bikses</set></think>
+        <set name="clothesDisplay"><formal>bikses. </formal></set>
+        <think><set name="topic">color question</set></think>
+        Kādu krāsu vēlies biksēm? Melnu, baltu, sarkanu?
+    </template>
+</category>
+<category>
+    <pattern> svārkus </pattern>
+    <template>
+        <think><set name="clothes">svārkus</set></think>
+        <set name="clothesDisplay"><formal>Svārki. </formal></set>
+        <think><set name="topic">color question</set></think>
+        Kādu krāsu vēlies svārkiem? Melnu, baltu, sarkanu?
+    </template>
+</category>
+<category>
+    <pattern> kleitu </pattern>
+    <template>
+        <think><set name="clothes">kleitu</set></think>
+        <set name="clothesDisplay"><formal>Kleita. </formal></set>
+        <think><set name="topic">color question</set></think>
+        Kādu krāsu vēlies kleitai? Melnu, baltu, sarkanu?
+    </template>
+</category>
+<category>
+    <pattern> * </pattern>
+    <template>
+        Piedod, nesapratu. Vai vēlies pirkt džemperi, bikses, svārkus vai kleitu?
+    </template>
+</category>
 </topic>
 
 
@@ -56,143 +107,175 @@
 <category>
     <pattern> * </pattern>
     <template>
-        Pašlaik šādas krāsas apērbs nav nolikavās. Mūsu veikalā pieejams šādas krāsas apģērbs - melns, balts, sarkans!
+        Pašlaik šādas krāsas apģērbs nav noliktavās. Mūsu veikalā pieejams šādas krāsas apģērbs - melns, balts, sarkans!
     </template>
 </category>
 <category>
-    <pattern> <set>coloroffer</set> ^ </pattern>
+    <pattern> <set>coloroffer</set> </pattern>
     <template>
-        Var izvēlēties kādu no šīm krāsām - melns, balts, sarkans!
+        Var izvēlēties kādu no šīm krāsām - melna, balta, sarkana!
     </template>
 </category>
 <category>
-    <pattern> <set>colorset</set> ^ </pattern>
+    <pattern> melnu </pattern>
     <template>
-        <think><set name="color"> black </set></think> 
-        <srai> VALIDATE </srai>
+        <think><set name="color">melnu</set></think> 
+        <think><set name="topic">color validation</set></think>
+        Tu vēlies pirkt <get name="clothes"/> ar <get name="color"/>  krāsu. Vai tā ir pareizi?
     </template>
 </category>
 <category>
-    <pattern>^ <set>colorset</set> ^ </pattern>
+    <pattern> baltu </pattern>
     <template>
-        <think><set name="color"> white </set></think> 
-        <srai> VALIDATE </srai>
+        <think><set name="color">baltu</set></think> 
+        <think><set name="topic">color validation</set></think>
+        Tu vēlies pirkt <get name="clothes"/> ar <get name="color"/>  krāsu. Vai tā ir pareizi?
     </template>
 </category>
 <category>
-    <pattern>^ <set>colorset</set> ^ </pattern>
+    <pattern> sarkanu </pattern>
     <template>
-        <think><set name="color"> red </set></think> 
-        <srai> VALIDATE </srai>
-    </template>
-</category>
-<category>
-    <pattern> VALIDATE </pattern>
-    <template>
-        <think><set name="topic"> color validation </set></think> 
-        Tu vēlies pirkt <get name="color"/> apģērbu. Vai tā ir pareizi?
+        <think><set name="color">sarkanu</set></think> 
+        <think><set name="topic">color validation</set></think>
+        Tu vēlies pirkt <get name="clothes"/> ar <get name="color"/>  krāsu. Vai tā ir pareizi?
     </template>
 </category>
 </topic>
 
-<topic name="clothes validation">
+
+<topic name="color validation">
 <category>
     <pattern> * </pattern>
     <template>
-        Piedod, vai tu izvēlējies pirkt <get name="color"/> apģērbu?
+        Piedod, vai tu izvēlējies pirkt <get name="clothes"/> ar <get name="color"/> krāsu?
     </template>
 </category>
 <category>
     <pattern> <set>rightset</set> </pattern>
     <template>
-        <think> <set name="topic"> clothes size question </set>
-        <set name= "size"> vienalga </set></think>
+        <think><set name="topic">clothes size question</set></think>
         Ļoti labi, vai vēlies izvēlēties izmēru?
     </template>
 </category>
 <category>
-    <pattern>^ <set>rightset</set> ^</pattern>
+    <pattern> ^ <set>rightset</set> ^ </pattern>
     <template>
-        <srai><star index="2"/></srai>
+        <think><set name="topic">clothes size question</set></think>
+        Ļoti labi, vai vēlies izvēlēties izmēru?
     </template>
 </category>
 <category>
     <pattern> <set>wrongset</set> </pattern>
     <template>
-        <think> <set name="topic"> clothes size question </set></think>
-        Nesapratu, kādu izmēru vēlies? Pieejamie izmēri: XS, S, M, L, XL, XXL?
+        <think><set name="topic">color question</set></think>
+        Kādu krāsu tad vēlies? Pieejamās krāsas: melnu, baltu, sarkanu?
     </template>
 </category>
 <category>
-    <pattern>^ <set>wrongset</set> ^</pattern>
+    <pattern> ^ <set>wrongset</set> ^ </pattern>
     <template>
-        <srai><star index="2"/></srai>
+        <think><set name="topic">color question</set></think>
+        Kādu krāsu tad vēlies? Pieejamās krāsas: melnu, baltu, sarkanu?
     </template>
 </category>
 </topic>
 
-<topic name = "clothes size question">
+
+<topic name="clothes size question">
 <category>
-    <pattern>^ <set>noset</set> ^</pattern>
+    <pattern> <set>noset</set> </pattern>
     <template>
-        <think>^ <set> FINAL </set> ^</think>
+        <think><set name="size">vienalga</set></think>
+        <think><set name="topic">FINAL</set></think>
         Labi
-        <srai> SUMMARY </srai>
+        <srai>SUMMARY</srai>
     </template>
 </category>
 <category>
-    <pattern>^ <set>yesset</set> ^</pattern>
+    <pattern> ^ <set>noset</set> ^ </pattern>
     <template>
+        <think><set name="size">vienalga</set></think>
+        <think><set name="topic">FINAL</set></think>
+        Labi
+        <srai>SUMMARY</srai>
+    </template>
+</category>
+<category>
+    <pattern> <set>yesset</set> </pattern>
+    <template>
+        <think><set name="topic">size selection</set></think>
         Kāda izmēra drēbes tu vēlies? XS, S, M, L, XL, XXL?
     </template>
 </category>
 <category>
-    <pattern> <set>colorset</set> ^ </pattern>
+    <pattern> ^ <set>yesset</set> ^ </pattern>
     <template>
-        <think><set name="size"> XS </set></think> 
-        <srai> VALIDATE </srai>
+        <think><set name="topic">size selection</set></think>
+        Kāda izmēra drēbes tu vēlies? XS, S, M, L, XL, XXL?
     </template>
 </category>
 <category>
-    <pattern>^ <set>sizeset</set> ^ </pattern>
+    <pattern> * </pattern>
     <template>
-        <think><set name="size"> S </set></think> 
-        <srai> VALIDATE </srai>
+        Piedod, nesapratu. Vai vēlies izvēlēties izmēru? (jā vai nē)
+    </template>
+</category>
+</topic>
+
+
+<topic name="size selection">
+<category>
+    <pattern> XS </pattern>
+    <template>
+        <think><set name="size">XS</set></think> 
+        <think><set name="topic">size validation</set></think>
+        Tu vēlies pirkt <get name="size"/> izmēra <get name="clothes"/> ar <get name="color"/> krāsu. Vai sapratu pareizi?
     </template>
 </category>
 <category>
-    <pattern>^ <set>sizeset</set> ^ </pattern>
+    <pattern> S </pattern>
     <template>
-        <think><set name="size"> M </set></think> 
-        <srai> VALIDATE </srai>
+        <think><set name="size">S</set></think> 
+        <think><set name="topic">size validation</set></think>
+        Tu vēlies pirkt <get name="size"/> izmēra <get name="clothes"/> ar <get name="color"/> krāsu. Vai sapratu pareizi?
     </template>
 </category>
 <category>
-    <pattern> <set>colorset</set> ^ </pattern>
+    <pattern> M </pattern>
     <template>
-        <think><set name="size"> L </set></think> 
-        <srai> VALIDATE </srai>
+        <think><set name="size">M</set></think> 
+        <think><set name="topic">size validation</set></think>
+        Tu vēlies pirkt <get name="size"/> izmēra <get name="clothes"/> ar <get name="color"/> krāsu. Vai sapratu pareizi?
     </template>
 </category>
 <category>
-    <pattern>^ <set>sizeset</set> ^ </pattern>
+    <pattern> L </pattern>
     <template>
-        <think><set name="size"> XL </set></think> 
-        <srai> VALIDATE </srai>
+        <think><set name="size">L</set></think> 
+        <think><set name="topic">size validation</set></think>
+        Tu vēlies pirkt <get name="size"/> izmēra <get name="clothes"/> ar <get name="color"/> krāsu. Vai sapratu pareizi?
     </template>
 </category>
 <category>
-    <pattern>^ <set>sizeset</set> ^ </pattern>
+    <pattern> XL </pattern>
     <template>
-        <think><set name="size"> XXL </set></think> 
-        <srai> VALIDATE </srai>
+        <think><set name="size">XL</set></think> 
+        <think><set name="topic">size validation</set></think>
+        Tu vēlies pirkt <get name="size"/> izmēra <get name="clothes"/> ar <get name="color"/> krāsu. Vai sapratu pareizi?
     </template>
 </category>
 <category>
-    <pattern> VALIDATE </pattern>
+    <pattern> XXL </pattern>
     <template>
-        <think><set name="topic"> size validation </set></think> 
-        Tu vēlies pirkt <get name="size"/> izmēra apģērbu. Vai sapratu pareizi?
+        <think><set name="size">XXL</set></think> 
+        <think><set name="topic">size validation</set></think>
+        Tu vēlies pirkt <get name="size"/> izmēra <get name="clothes"/> ar <get name="color"/> krāsu. Vai sapratu pareizi?
+    </template>
+</category>
+<category>
+    <pattern> * </pattern>
+    <template>
+        Piedod, nesapratu. Kādu izmēru vēlies? Pieejamie izmēri: XS, S, M, L, XL, XXL?
     </template>
 </category>
 </topic>
@@ -202,48 +285,53 @@
 <category>
     <pattern> * </pattern>
     <template>
-        Tu vēlies pirkt <get name="size"/> izmēra apģērbu?
+        Piedod, vai tu izvēlējies <get name="size"/> izmēra <get name="clothes"/> ar <get name="color"/> krāsu?
     </template>
 </category>
 <category>
     <pattern> <set>rightset</set> </pattern>
     <template>
-        <think> <set name="topic"> clothes size question </set>
-        <set name= "size"> vienalga </set></think>
-        Ļoti labi, vai vēlies izvēlēties izmēru?
+        <think><set name="topic">FINAL</set></think>
+        Perfekti!
+        <srai>SUMMARY</srai>
     </template>
 </category>
 <category>
-    <pattern>^ <set>rightset</set> ^</pattern>
+    <pattern> ^ <set>rightset</set> ^ </pattern>
     <template>
-        <srai><star index="2"/></srai>
+        <think><set name="topic">FINAL</set></think>
+        Perfekti!
+        <srai>SUMMARY</srai>
     </template>
 </category>
 <category>
     <pattern> <set>wrongset</set> </pattern>
     <template>
-        <think> <set name="topic"> clothes size question </set></think>
+        <think><set name="topic">size selection</set></think>
         Nesapratu, kādu izmēru vēlies? Pieejamie izmēri: XS, S, M, L, XL, XXL?
     </template>
 </category>
 <category>
-    <pattern>^ <set>wrongset</set> ^</pattern>
+    <pattern> ^ <set>wrongset</set> ^ </pattern>
     <template>
-        <think><set name ="topic"> clothes size question </set></think>
-        Īsti nesapratu? Kādu no šiem izmēriem vēlies? XS, S, M, L, XL, XXL?
+        <think><set name="topic">size selection</set></think>
+        Nesapratu, kādu izmēru vēlies? Pieejamie izmēri: XS, S, M, L, XL, XXL?
     </template>
 </category>
 </topic>
+
 
 <topic name="FINAL">
 <category>
     <pattern> SUMMARY </pattern>
     <template>
-        <think><set name="topic"> * </set></think> 
-        Tavs pasūtījums ir šāds:
-        Drēbes tips: <get name="clothes" />
-        Krāsa: <get name="color" />
-        Izmērs: <get name="size" />
+        <think><set name="topic">*</set></think> 
+         Tavs pasūtījums ir šāds:
+        Drēbes tips: <get name="clothesDisplay"/>
+        Krāsa: <get name="color"/>
+        Izmērs: <get name="size"/>
+        
+        Paldies par pasūtījumu! Jūsu pasūtījums tiks apstrādāts drīzumā.
     </template>
 </category>
 </topic>
